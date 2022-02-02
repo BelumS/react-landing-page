@@ -53,11 +53,12 @@ export const Overlay: FunctionComponent = () => {
   };
 
   const handleMenuCloseClick = () => {
-    if(searchInputRef && searchInputRef.current && closeIconRef && closeIconRef.current) {
+    if(searchInputRef && searchInputRef.current && openIconRef && openIconRef.current && closeIconRef && closeIconRef.current) {
       setSearchInputValue('')
       toggleElement(searchInputRef.current, searchInputShrinkStyle);
       closeIconRef.current.classList.remove(iconHideStyle);
-      // toggleElement(closeIconRef.current, iconHideStyle);
+      addElement(closeIconRef.current, iconHideStyle);
+      toggleElement(openIconRef.current, iconHideStyle);
     }
   };
 
@@ -115,7 +116,7 @@ export const Overlay: FunctionComponent = () => {
 
         <IconWithRef
           ref={closeIconRef}
-          styles={`fas ${iconStyles['fa-times']} ${iconStyles['nav-menu-icon']} hide`}
+          styles={`fas fa-times ${iconStyles['fa-times']} ${iconStyles['nav-menu-icon']} ${iconHideStyle}`}
           onClick={handleMenuCloseClick}
         />
       </NavMenu>
@@ -128,7 +129,6 @@ export const Overlay: FunctionComponent = () => {
         onSubmit={handleSearchFormSubmit}
       >
 
-        {/* Wrap with CSSTransition */}
         <InputWithRef
           styles={inputStyles['search-input'] + ' ' + inputStyles['shrink']}
           inputType="search"
