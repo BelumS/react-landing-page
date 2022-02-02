@@ -1,9 +1,5 @@
 import { FunctionComponent } from 'react';
-import { StyleProp } from '../../common/Types';
-
-interface IconProps extends StyleProp {
-  onClick: () => void;
-}
+import { IconProps } from '../../common/PropTypes';
 
 const Icon: FunctionComponent<IconProps> = props => { return <i className={props.styles} onClick={props.onClick}></i>; };
 

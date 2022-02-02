@@ -1,9 +1,6 @@
 import { FunctionComponent } from 'react';
+import { StyleProp } from '../../common/PropTypes';
 
-interface NavProps {
-  styles: string
-}
-
-export const NavMenu: FunctionComponent<NavProps> = props => {
+export const NavMenu: FunctionComponent<StyleProp> = props => {
   return <nav className={props.styles}>{props.children}</nav>;
 };

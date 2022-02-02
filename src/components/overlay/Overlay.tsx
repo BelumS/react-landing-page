@@ -1,10 +1,11 @@
-import React, { FunctionComponent, useState, useRef } from 'react';
+import { FunctionComponent, useState, useRef } from 'react';
 import { NavMenu } from '../../components/navigation/NavMenu';
 import Form from '../ui/Form';
 import IconWithRef from '../ui/refs/IconWithRef';
 import InputWithRef from '../ui/refs/InputWithRef';
 import Icon from '../ui/Icon';
 import SubmitButton from '../ui/SubmitButton';
+import { InputEvent, SubmitEvent } from '../../common/EventTypes';
 import styles from './Overlay.module.css';
 import buttonStyles from '../ui/Button.module.css';
 import iconStyles from '../ui/Icon.module.css';
@@ -18,7 +19,6 @@ import {
   toggleElement,
   elementHasClass,
 } from '../../utils/DomUtils';
-import { InputEvent, SubmitEvent } from '../../common/Types';
 
 export const Overlay: FunctionComponent = () => {
   const [searchInputValue, setSearchInputValue] = useState("");
@@ -26,37 +26,39 @@ export const Overlay: FunctionComponent = () => {
   const closeIconRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const searchInputShrinkStyle = inputStyles['shrink'];
+  const iconHideStyle = 'hide';
+
   const doNothing = () => {};
 
-  const handleMenuOpen = () => {
+  const handleMenuOpenClick = () => {
     if (searchInputRef && searchInputRef.current) {
       const searchInputEl: HTMLInputElement = searchInputRef?.current;
 
-      searchInputEl.focus();
-
-      if (elementHasClass(searchInputEl, 'shrink')) {
-        toggleElement(searchInputEl, 'shrink')
+      if (elementHasClass(searchInputEl, searchInputShrinkStyle)) {
+        toggleElement(searchInputEl, searchInputShrinkStyle)
       } else {
         setSearchInputValue('')
-        addElement(searchInputEl, 'shrink');
+        addElement(searchInputEl, searchInputShrinkStyle);
       }
+      searchInputEl.focus();
 
-      addElement(searchInputEl, 'hide');
-
-      if(closeIconRef && closeIconRef.current) {
-        toggleElement(closeIconRef.current, 'hide');
+      if(openIconRef && openIconRef.current && closeIconRef && closeIconRef.current) {
+        addElement(openIconRef.current, iconHideStyle);
+        toggleElement(closeIconRef.current, iconHideStyle);
       }
     } else {
       console.error('Failed to Access DOM');
     }
   };
 
-  const handleMenuClose = () => {
-    if(searchInputRef && searchInputRef.current && closeIconRef && closeIconRef.current) {
+  const handleMenuCloseClick = () => {
+    if(searchInputRef && searchInputRef.current && openIconRef && openIconRef.current && closeIconRef && closeIconRef.current) {
       setSearchInputValue('')
-      toggleElement(searchInputRef.current, 'shrink');
-      closeIconRef.current.classList.remove('hide');
-      toggleElement(searchInputRef.current, 'hide');
+      toggleElement(searchInputRef.current, searchInputShrinkStyle);
+      closeIconRef.current.classList.remove(iconHideStyle);
+      addElement(closeIconRef.current, iconHideStyle);
+      toggleElement(openIconRef.current, iconHideStyle);
     }
   };
 
@@ -80,10 +82,10 @@ export const Overlay: FunctionComponent = () => {
         setSearchInputValue(searchInputEl?.value)
       }
 
-      if (elementHasClass(searchInputEl, 'shrink')) {
-        toggleElement(searchInputEl, 'shrink');
+      if (elementHasClass(searchInputEl, searchInputShrinkStyle)) {
+        toggleElement(searchInputEl, searchInputShrinkStyle);
       } else {
-        addElement(searchInputEl, 'shrink');
+        addElement(searchInputEl, searchInputShrinkStyle);
       }
       searchInputEl.focus();
     }
@@ -94,7 +96,7 @@ export const Overlay: FunctionComponent = () => {
     if (searchInputRef && searchInputRef.current) {
       const searchInputEl: HTMLInputElement = searchInputRef?.current;
       
-      if (searchInputEl?.value && !elementHasClass(searchInputEl, 'shrink')) {
+      if (searchInputEl?.value && !elementHasClass(searchInputEl, searchInputShrinkStyle)) {
         alert(`Searching for: '${searchInputEl.value}'`);
         searchInputEl.value = '';
         setSearchInputValue('')
@@ -109,13 +111,13 @@ export const Overlay: FunctionComponent = () => {
         <IconWithRef
           ref={openIconRef}
           styles={`fas fa-bars ${iconStyles['nav-menu-icon']}`}
-          onClick={handleMenuOpen}
+          onClick={handleMenuOpenClick}
         />
 
         <IconWithRef
           ref={closeIconRef}
-          styles={`fas ${iconStyles['fa-times']} ${iconStyles['nav-menu-icon']} hide`}
-          onClick={handleMenuClose}
+          styles={`fas fa-times ${iconStyles['fa-times']} ${iconStyles['nav-menu-icon']} ${iconHideStyle}`}
+          onClick={handleMenuCloseClick}
         />
       </NavMenu>
 
@@ -128,7 +130,7 @@ export const Overlay: FunctionComponent = () => {
       >
 
         <InputWithRef
-          styles={inputStyles['search-input'] + ' shrink'}
+          styles={inputStyles['search-input'] + ' ' + inputStyles['shrink']}
           inputType="search"
           placeholderText="Search"
           ref={searchInputRef}
@@ -136,7 +138,6 @@ export const Overlay: FunctionComponent = () => {
           onChange={handleSearchInputChange}
         />
 
-        {/* Wrap with CSSTransition */}
         <SubmitButton styles={buttonStyles['search-button']}>
           <Icon
             styles={`fas fa-search ${iconStyles['search-icon']}`}

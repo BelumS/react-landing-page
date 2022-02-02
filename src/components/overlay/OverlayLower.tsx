@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styles from './Overlay.module.css';
 
-export const OverlayLower: FunctionComponent = props => {
+export const OverlayLower: FunctionComponent = () => {
   return (
     <section className={styles["overlay-lower-text"]}>
       <div className="left-text">

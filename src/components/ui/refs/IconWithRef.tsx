@@ -1,13 +1,8 @@
 import React from 'react';
-import { StyleProp } from '../../../common/Types';
+import { IconProps } from '../../../common/PropTypes';
 
-interface IconWithRefProps extends StyleProp {
-  onClick: () => void;
-}
-
-const IconWithRef = React.forwardRef<HTMLElement, React.PropsWithChildren<IconWithRefProps>>(
+const IconWithRef = React.forwardRef<HTMLElement, React.PropsWithChildren<IconProps>>(
     (props, ref) => {
-     /* TODO: Wrap with CSSTransition */
       return <i ref={ref} className={props.styles} onClick={props.onClick}></i>;
     }
   );
