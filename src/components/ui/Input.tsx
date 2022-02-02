@@ -1,12 +1,5 @@
 import { FunctionComponent } from 'react';
-import { InputEvent, StyleProp } from '../../common/Types';
-
-interface InputProps extends StyleProp {
-  inputType: string,
-  placeholderText: string,
-  onClick: () => void,
-  onChange: (e: InputEvent) => void;
-}
+import { InputProps } from '../../common/PropTypes';
 
 export const Input: FunctionComponent<InputProps> = (props) => {
   return (

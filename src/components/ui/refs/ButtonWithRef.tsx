@@ -1,12 +1,7 @@
 import React from 'react';
-import { StyleProp } from '../../../common/Types';
+import { ButtonProps } from '../../../common/PropTypes';
 
-interface ButtonWithRefProps extends StyleProp {
-  type: any, 
-  onClick: () => void;
-}
-
-const ButtonWithRef = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ButtonWithRefProps>>((props, ref) => {
+const ButtonWithRef = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ButtonProps>>((props, ref) => {
   return <button type={props.type} className={props.styles} ref={ref} onClick={props.onClick}>{props.children}</button>;
 });
 

@@ -1,10 +1,11 @@
-import React, { FunctionComponent, useState, useRef } from 'react';
+import { FunctionComponent, useState, useRef } from 'react';
 import { NavMenu } from '../../components/navigation/NavMenu';
 import Form from '../ui/Form';
 import IconWithRef from '../ui/refs/IconWithRef';
 import InputWithRef from '../ui/refs/InputWithRef';
 import Icon from '../ui/Icon';
 import SubmitButton from '../ui/SubmitButton';
+import { InputEvent, SubmitEvent } from '../../common/EventTypes';
 import styles from './Overlay.module.css';
 import buttonStyles from '../ui/Button.module.css';
 import iconStyles from '../ui/Icon.module.css';
@@ -18,7 +19,6 @@ import {
   toggleElement,
   elementHasClass,
 } from '../../utils/DomUtils';
-import { InputEvent, SubmitEvent } from '../../common/Types';
 
 export const Overlay: FunctionComponent = () => {
   const [searchInputValue, setSearchInputValue] = useState("");

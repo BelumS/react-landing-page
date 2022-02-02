@@ -1,15 +1,7 @@
 import React from 'react';
-import { StyleProp } from '../../../common/Types';
-import { InputEvent } from '../../../common/Types';
+import { InputProps } from '../../../common/PropTypes';
 
-interface InputWithRefProps extends StyleProp {
-  inputType: string,
-  placeholderText: string,
-  onClick: () => void,
-  onChange: (e: InputEvent) => void;
-}
-
-const InputWithRef = React.forwardRef<HTMLInputElement, React.PropsWithChildren<InputWithRefProps>>((props, ref) => {
+const InputWithRef = React.forwardRef<HTMLInputElement, React.PropsWithChildren<InputProps>>((props, ref) => {
   return (
     // TODO: Wrap with CSSTransition
     <input

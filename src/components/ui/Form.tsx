@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
-import { StyleProp, SubmitEvent } from '../../common/Types';
+import { StyleProp } from '../../common/PropTypes';
+import { SubmitEvent } from '../../common/EventTypes';
 
 interface FormProps extends StyleProp {
   action: string,
