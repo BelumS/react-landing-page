@@ -1,0 +1,9 @@
+/* Footer Section */
+.landing-footer {
+    box-shadow: var(--my-box-shadow);
+    padding-top: 5px;
+    height: 5vh;
+    background-color: #544;
+    text-align: center;
+  }
+  /* End of Footer Section */

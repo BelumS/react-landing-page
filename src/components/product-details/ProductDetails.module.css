@@ -1,0 +1,28 @@
+/* Product Details Section */
+.product-details {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: justify;
+    height: 30vh;
+  }
+  
+  .left-details {
+    padding-left: 20px;
+    width: 50%;
+    background-color: white;
+    box-shadow: var(--my-box-shadow);
+    border: none;
+  }
+  
+  .right-details {
+    padding-left: 20px;
+    width: 50%;
+    background-color: green;
+    box-shadow: var(--my-box-shadow);
+  }
+  
+  .details-header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  /* End of Product Details Section */

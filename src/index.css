@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Architects+Daughter&family=Rampart+One&display=swap');
+
+/* Reset Styles */
+* {
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: var(--full-width);
+  height: var(--full-height);
+  overflow-x: hidden;
+}
+/* End of Reset Styles */
+
+/* Common Styles */
+:root {
+  --full-width: 100vw;
+  --full-height: 100vh;
+  --my-box-shadow: 0.2px 0.2px 2px black;
+}
+
+.hide {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.fancy-text {
+  display: block;
+  font-size: 20px;
+}
+
+.lato-font {
+  font-family: 'Lato', serif;
+}
+/* End of Common Styles */

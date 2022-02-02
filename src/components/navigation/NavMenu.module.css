@@ -1,0 +1,10 @@
+.nav-menu {
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  color: white;
+  width: 60px;
+  top: 26px;
+  left: 10px;
+}

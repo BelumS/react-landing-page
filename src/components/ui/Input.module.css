@@ -1,0 +1,15 @@
+.search-input {
+  font-size: 18px;
+  height: 55px;
+  width: 200px;
+  transition: width 0.2s ease-in-out;
+}
+
+.search-input:focus {
+  width: 200px;
+}
+
+.search-input.shrink,
+.search-input:focus.shrink {
+  width: 40px;
+}
