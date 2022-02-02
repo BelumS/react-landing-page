@@ -1,17 +1,17 @@
 .search-button {
-    position: relative;
-    top: 2px;
-    left: -4px;
-    font-size: 22px;
-    height: 55px;
-    transition: left 0.3s ease;
-    color: #fff;
-    cursor: pointer;
-    background-color: green;
-    border: 0.3px solid black;
-    border-radius: 2px;
-  }
-  
-  .search-button:hover {
-    transform: scale(0.98);
-  }
+  position: relative;
+  top: 2px;
+  left: -4px;
+  font-size: 22px;
+  height: 55px;
+  transition: left 0.3s ease;
+  color: #fff;
+  cursor: pointer;
+  background-color: green;
+  border: 0.3px solid black;
+  border-radius: 2px;
+}
+
+.search-button:hover {
+  transform: scale(0.98);
+}

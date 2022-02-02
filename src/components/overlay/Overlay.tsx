@@ -26,37 +26,38 @@ export const Overlay: FunctionComponent = () => {
   const closeIconRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const searchInputShrinkStyle = inputStyles['shrink'];
+  const iconHideStyle = 'hide';
+
   const doNothing = () => {};
 
-  const handleMenuOpen = () => {
+  const handleMenuOpenClick = () => {
     if (searchInputRef && searchInputRef.current) {
       const searchInputEl: HTMLInputElement = searchInputRef?.current;
 
-      searchInputEl.focus();
-
-      if (elementHasClass(searchInputEl, 'shrink')) {
-        toggleElement(searchInputEl, 'shrink')
+      if (elementHasClass(searchInputEl, searchInputShrinkStyle)) {
+        toggleElement(searchInputEl, searchInputShrinkStyle)
       } else {
         setSearchInputValue('')
-        addElement(searchInputEl, 'shrink');
+        addElement(searchInputEl, searchInputShrinkStyle);
       }
+      searchInputEl.focus();
 
-      addElement(searchInputEl, 'hide');
-
-      if(closeIconRef && closeIconRef.current) {
-        toggleElement(closeIconRef.current, 'hide');
+      if(openIconRef && openIconRef.current && closeIconRef && closeIconRef.current) {
+        addElement(openIconRef.current, iconHideStyle);
+        toggleElement(closeIconRef.current, iconHideStyle);
       }
     } else {
       console.error('Failed to Access DOM');
     }
   };
 
-  const handleMenuClose = () => {
+  const handleMenuCloseClick = () => {
     if(searchInputRef && searchInputRef.current && closeIconRef && closeIconRef.current) {
       setSearchInputValue('')
-      toggleElement(searchInputRef.current, 'shrink');
-      closeIconRef.current.classList.remove('hide');
-      toggleElement(searchInputRef.current, 'hide');
+      toggleElement(searchInputRef.current, searchInputShrinkStyle);
+      closeIconRef.current.classList.remove(iconHideStyle);
+      // toggleElement(closeIconRef.current, iconHideStyle);
     }
   };
 
@@ -80,10 +81,10 @@ export const Overlay: FunctionComponent = () => {
         setSearchInputValue(searchInputEl?.value)
       }
 
-      if (elementHasClass(searchInputEl, 'shrink')) {
-        toggleElement(searchInputEl, 'shrink');
+      if (elementHasClass(searchInputEl, searchInputShrinkStyle)) {
+        toggleElement(searchInputEl, searchInputShrinkStyle);
       } else {
-        addElement(searchInputEl, 'shrink');
+        addElement(searchInputEl, searchInputShrinkStyle);
       }
       searchInputEl.focus();
     }
@@ -94,7 +95,7 @@ export const Overlay: FunctionComponent = () => {
     if (searchInputRef && searchInputRef.current) {
       const searchInputEl: HTMLInputElement = searchInputRef?.current;
       
-      if (searchInputEl?.value && !elementHasClass(searchInputEl, 'shrink')) {
+      if (searchInputEl?.value && !elementHasClass(searchInputEl, searchInputShrinkStyle)) {
         alert(`Searching for: '${searchInputEl.value}'`);
         searchInputEl.value = '';
         setSearchInputValue('')
@@ -109,13 +110,13 @@ export const Overlay: FunctionComponent = () => {
         <IconWithRef
           ref={openIconRef}
           styles={`fas fa-bars ${iconStyles['nav-menu-icon']}`}
-          onClick={handleMenuOpen}
+          onClick={handleMenuOpenClick}
         />
 
         <IconWithRef
           ref={closeIconRef}
           styles={`fas ${iconStyles['fa-times']} ${iconStyles['nav-menu-icon']} hide`}
-          onClick={handleMenuClose}
+          onClick={handleMenuCloseClick}
         />
       </NavMenu>
 
@@ -127,8 +128,9 @@ export const Overlay: FunctionComponent = () => {
         onSubmit={handleSearchFormSubmit}
       >
 
+        {/* Wrap with CSSTransition */}
         <InputWithRef
-          styles={inputStyles['search-input'] + ' shrink'}
+          styles={inputStyles['search-input'] + ' ' + inputStyles['shrink']}
           inputType="search"
           placeholderText="Search"
           ref={searchInputRef}
@@ -136,7 +138,6 @@ export const Overlay: FunctionComponent = () => {
           onChange={handleSearchInputChange}
         />
 
-        {/* Wrap with CSSTransition */}
         <SubmitButton styles={buttonStyles['search-button']}>
           <Icon
             styles={`fas fa-search ${iconStyles['search-icon']}`}
